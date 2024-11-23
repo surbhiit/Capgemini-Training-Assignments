@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Details</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h2,
+      h3 {
+        margin: 10px 0;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="userDetails"></div>
+      <div id="booksDetails"></div>
+    </div>
+
+    <script>
+      // Book categories
+      var novels = [
+        "A Song of Ice and Fire",
+        "Harry Potter",
+        "Helen Keller",
+        "Dummy1",
+        "Dummy2",
+      ];
+      var fictions = ["Harry Potter", "Journey to the Narnia"];
+      var science = ["Brief History of Time", "Cosmos", "Origin of Species"];
+      var technology = [
+        "Clean Code",
+        "The Pragmatic Programmer",
+        "Introduction to Algorithms",
+      ];
+      var kidsEducation = ["The Cat in the Hat", "Matilda", "Charlotte's Web"];
+      var magazines = ["National Geographic", "Time", "Forbes"];
+
+      // Retrieve user data from localStorage
+      const user = JSON.parse(localStorage.getItem("newUser"));
+
+      if (user) {
+        // Display user details
+        const userDetails = `
+          <h2>Welcome, ${user.name}!</h2>
+          <h3>Your selected book category is: <i>${user.category}</i></h3>
+        `;
+        document.getElementById("userDetails").innerHTML = userDetails;
+
+        // Display books based on category
+        let books = [];
+        switch (user.category) {
+          case "novels":
+            books = novels;
+            break;
+          case "fiction":
+            books = fictions;
+            break;
+          case "science":
+            books = science;
+            break;
+          case "technology":
+            books = technology;
+            break;
+          case "Kids Education":
+            books = kidsEducation;
+            break;
+          case "Magazines":
+            books = magazines;
+            break;
+          default:
+            books = ["No books available for this category."];
+        }
+
+        // Generate book list
+        const bookList = books.map((book) => `<li>${book}</li>`).join("");
+        const booksDetails = `
+          <h3>Books in ${user.category} Category:</h3>
+          <ul>${bookList}</ul>
+        `;
+        document.getElementById("booksDetails").innerHTML = booksDetails;
+      } else {
+        document.getElementById("userDetails").innerHTML =
+          "<p>No user data found.</p>";
+      }
+    </script>
+  </body>
+</html>

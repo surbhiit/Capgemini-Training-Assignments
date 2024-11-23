@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: rgb(36, 138, 138);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: rgb(28, 108, 108);
+      }
+    </style>
+  </head>
+  <body>
+    <form onsubmit="loginUser(event)">
+      <h2>Login</h2>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      /><br />
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      /><br />
+      <button type="submit">Login</button>
+    </form>
+
+    <script>
+      function loginUser(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Retrieve users from localStorage
+        const user = JSON.parse(localStorage.getItem("newUser"));
+
+        if (user.email === email && user.password === password) {
+          alert("login Successs...");
+          window.location.href = "HomePage.html";
+        } else {
+          alert("Incorrect email or  password. Please try again.");
+        }
+      }
+    </script>
+  </body>
+</html>

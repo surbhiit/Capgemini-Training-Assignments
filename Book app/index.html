@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online Book Store</title>
+
+    <style>
+      body {
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        padding: 30px;
+        border-radius: 8px;
+        width: 350px;
+        text-align: center;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      body {
+        background-image: url("../bookbg.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div style="background-color: rgb(36, 138, 138)" , class="container">
+      <h1><center>Registration</center></h1>
+      <hr />
+      <br />
+
+      <form action="HomePage.html" method="GET" onsubmit="return check()">
+        <b>Name :</b>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter the name"
+          required
+        /><br /><br />
+        <b>Age :</b>
+        <input type="number" id="age" placeholder="Enter the age" /><br /><br />
+        <b>E-mail :</b>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter the email"
+          required
+        /><br /><br />
+
+        <b>Password :</b>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter the password"
+          required
+        /><br /><br />
+
+        <b>Book Category:</b>
+        <select id="bookCategory" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="fiction">Fiction</option>
+          <option value="non-fiction">Non-Fiction</option>
+          <option value="novels">Novels</option>
+          <option value="kids-education">Kids Education</option>
+          <option value="science">Science</option>
+          <option value="technology">Technology</option>
+          <option value="magazines">Magazines</option>
+        </select>
+        <br /><br />
+
+        <button type="submit">Register</button><br /><br />
+      </form>
+      <p>Already have account?</p>
+      <a href="login.html">Click Here to Login</a>
+    </div>
+
+    <script>
+      function check() {
+        var age = document.getElementById("age").value;
+        if (age < 10 || age > 80) {
+          alert("Age must be between 10 - 80");
+          return false;
+        }
+        const user = {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value,
+          age: document.getElementById("age").value,
+          category: document.getElementById("bookCategory").value,
+        };
+
+        localStorage.setItem("newUser", JSON.stringify(user));
+        alert("User data saved!");
+        window.location.href = "HomePage.html";
+        return true;
+      }
+    </script>
+  </body>
+</html>
