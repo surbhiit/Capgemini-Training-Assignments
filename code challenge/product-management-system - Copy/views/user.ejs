@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+     
+      margin: 0;
+      padding: 0;
+      background-image: url('https://cdn.pixabay.com/photo/2015/09/10/14/45/texture-934511_1280.jpg');
+    }
+
+    /* Header Styles */
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    /* User Dashboard Container */
+    .user-dashboard.container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* Product List Section */
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    li img {
+      max-width: 100px;
+      max-height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    li div {
+      flex: 1;
+      padding-left: 15px;
+    }
+
+    /* Search Product Form */
+    .search-product-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      max-width: 500px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-product-form input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-product-form button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-product-form button:hover {
+      background-color: #45a049;
+    }
+
+    /* Logout Button */
+    .logout-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <h1>User Dashboard</h1>
+  </header>
+
+  <!-- User Dashboard Section -->
+  <div class="user-dashboard container">
+    <!-- Product List Section -->
+    <h2>Product List</h2>
+    <ul>
+      <% products.forEach(product => { %>
+        <li>
+          <div>
+            <strong><%= product.name %></strong> - <%= product.category %> - $<%= product.price %>
+          </div>
+          <img src="<%= product.image %>" alt="<%= product.name %>" />
+        </li>
+      <% }) %>
+    </ul>
+
+    <!-- Search Product Form -->
+    <h2>Search Products</h2>
+    <form class="search-product-form" action="/user/search" method="POST">
+      <input type="text" name="query" placeholder="Search by name or category" required />
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Logout Button -->
+    <form action="/logout" method="POST">
+      <button type="submit" class="logout-button">Logout</button>
+    </form>
+  </div>
+
+</body>
+</html>
