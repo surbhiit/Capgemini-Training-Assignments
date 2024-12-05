@@ -1,0 +1,44 @@
+package problemstatment1capmodule1.basic;
+
+import java.util.Scanner;
+
+public class Assignment1 {
+
+	    public static void main(String[] args) {
+	        Scanner sc = new Scanner(System.in);
+
+	 
+	        final double SALES_TAX_RATE = 0.1;  
+	        final double DISCOUNT_RATE = 0.05;
+	        double totalPrice = 0.0;
+
+	        System.out.println("Welcome to Store!");
+	        System.out.print("Enter the number of items in your transaction: ");
+	        int itemCount = sc.nextInt();
+
+	     
+	        for (int i = 1; i <= itemCount; i++) {
+	            System.out.print("Enter price for item " + i + ": ");
+	            double price = sc.nextDouble(); 
+
+	            System.out.print("Enter quantity for item " + i + ": ");
+	            int quantity = sc.nextInt(); 
+	            totalPrice += price * quantity;
+	        }
+
+	       
+	        double salesTax = totalPrice * SALES_TAX_RATE;
+	        double discount = totalPrice * DISCOUNT_RATE;
+            double finalTotal = totalPrice + salesTax - discount;
+
+	        System.out.println("\n--- Final Receipt ---");
+	        System.out.printf("Total Price (before tax and discount): $%.2f\n", totalPrice);
+	        System.out.printf("Sales Tax (10%%): $%.2f\n", salesTax);
+	        System.out.printf("Discount (5%%): -$%.2f\n", discount);
+	        System.out.printf("Final Total Price: $%.2f\n", finalTotal);
+
+	        sc.close();  
+	    }
+	}
+
+
