@@ -1,0 +1,80 @@
+package Array;
+
+import java.util.Scanner;
+
+public class EmployeeSalary {
+
+    public static final double HRA_PERCENT = 0.10;
+    public static final double TA_PERCENT = 0.05;
+    public static final double DA_PERCENT = 0.08;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the number of employees: ");
+        int numEmployees = scanner.nextInt();
+
+        double[] salaries = new double[numEmployees];
+
+        System.out.println("Enter the salaries for the employees:");
+        for (int i = 0; i < numEmployees; i++) {
+            System.out.print("Salary for Employee " + (i + 1) + ": ");
+            salaries[i] = scanner.nextDouble();
+        }
+
+        System.out.println("\nInitial Salaries:");
+        displaySalaries(salaries);
+        
+        incrementSalary(salaries);
+        applyBonus(salaries);
+        giveAdvice(salaries);
+        calculateAllowances(salaries);
+
+        System.out.println("\nUpdated Salaries:");
+        displaySalaries(salaries);
+        
+        scanner.close();
+    }
+
+    public static void incrementSalary(double[] salaries) {
+        for (int i = 0; i < salaries.length; i++) {
+            if (salaries[i] >= 30000) {
+                salaries[i] *= 1.10; 
+            }
+        }
+    }
+
+    public static void applyBonus(double[] salaries) {
+        for (int i = 0; i < salaries.length; i++) {
+            if (salaries[i] == 20000) {
+                salaries[i] += 2000; 
+            }
+        }
+    }
+
+    public static void giveAdvice(double[] salaries) {
+        for (double salary : salaries) {
+            if (salary < 15000) {
+                System.out.printf("Advice: For a salary of %.2f, improve your work to get a higher salary!\n", salary);
+            }
+        }
+    }
+
+
+    public static void calculateAllowances(double[] salaries) {
+        System.out.println("\nAllowances:");
+        for (double salary : salaries) {
+            double hra = salary * HRA_PERCENT;
+            double ta = salary * TA_PERCENT;
+            double da = salary * DA_PERCENT;
+            System.out.printf("For Salary %.2f: HRA = %.2f, TA = %.2f, DA = %.2f\n", salary, hra, ta, da);
+        }
+    }
+
+    public static void displaySalaries(double[] salaries) {
+        for (double salary : salaries) {
+            System.out.printf("%.2f ", salary);
+        }
+        System.out.println();
+    }
+}
