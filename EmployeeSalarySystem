@@ -1,0 +1,100 @@
+package problemstatment1capmodule1.basic;
+
+import java.util.Scanner;
+
+public class EmployeeSalarySystem {
+
+    String name;
+    String department;
+    double basicSalary;
+    double hra;
+    double ta;
+    double da;
+    double perks;
+
+    static final double HRA_PERCENTAGE = 0.20;
+    static final double TA_PERCENTAGE = 0.15;  
+    static final double DA_PERCENTAGE = 0.10;
+    static final double PERK_RATE = 0.05;    
+    static final double STANDARD_DEDUCTION = 0.08; 
+
+    public EmployeeSalarySystem(String name, String department, double basicSalary) {
+        this.name = name;
+        this.department = department;
+        this.basicSalary = basicSalary;
+    }
+
+    public double calculateHRA() {
+        this.hra = basicSalary * HRA_PERCENTAGE;
+        return this.hra;
+    }
+
+    public double calculateTA() {
+        this.ta = basicSalary * TA_PERCENTAGE;
+        return this.ta;
+    }
+
+    public double calculateDA() {
+        this.da = basicSalary * DA_PERCENTAGE;
+        return this.da;
+    }
+
+    public double calculatePerks() {
+        this.perks = basicSalary * PERK_RATE;
+        return this.perks;
+    }
+
+    public double calculateTotalSalary() {
+        return basicSalary + calculateHRA() + calculateTA() + calculateDA() + calculatePerks();
+    }
+
+    public static double calculateStandardDeduction(double salary) {
+        return salary * STANDARD_DEDUCTION;
+    }
+
+    public static double calculateTax(double salary) {
+        double deduction = calculateStandardDeduction(salary);
+        double taxableSalary = salary - deduction;
+        return taxableSalary * 0.10; 
+    }
+
+    public void displayEmployeeInfo() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Department: " + department);
+        System.out.println("Basic Salary: " + basicSalary);
+        System.out.println("HRA: " + calculateHRA());
+        System.out.println("TA: " + calculateTA());
+        System.out.println("DA: " + calculateDA());
+        System.out.println("Perks: " + calculatePerks());
+        System.out.println("Total Salary: " + calculateTotalSalary());
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter details for the Employee:");
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+        
+        System.out.print("Enter Department: ");
+        String department = sc.nextLine();
+        
+        System.out.print("Enter Basic Salary: ");
+        double salary = sc.nextDouble();
+
+        EmployeeSalarySystem employee = new EmployeeSalarySystem(name, department, salary);
+
+        System.out.println("\nEmployee Information:");
+        employee.displayEmployeeInfo();
+       
+        double totalSalary = employee.calculateTotalSalary();
+        double standardDeduction = EmployeeSalarySystem.calculateStandardDeduction(totalSalary);
+        double tax = EmployeeSalarySystem.calculateTax(totalSalary);
+        
+        System.out.println("\nStandard Deduction: " + standardDeduction);
+        System.out.println("Tax: " + tax);
+
+        sc.close();
+    }
+}
