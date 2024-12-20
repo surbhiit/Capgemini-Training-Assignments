@@ -1,0 +1,138 @@
+package JDBC;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player extends AbstractPlayer implements PlayerOperations {
+    private static final String URL = "jdbc:mysql://localhost:3306/player";
+    private static final String USER = "root";
+    private static final String PASSWORD = "Surbhi@2002";
+
+    // JDBC Connection Setup
+    private Connection connect() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    @Override
+    public void addPlayer(Player player) {
+        String query = "INSERT INTO player (name, skill, exp, country, overall_score) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, player.getName());
+            stmt.setString(2, player.getSkill());
+            stmt.setInt(3, player.getExp());
+            stmt.setString(4, player.getCountry());
+            stmt.setDouble(5, player.getOverallScore());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Player getPlayer(int id) {
+        String query = "SELECT * FROM player WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("id"));
+                player.setName(rs.getString("name"));
+                player.setSkill(rs.getString("skill"));
+                player.setExp(rs.getInt("exp"));
+                player.setCountry(rs.getString("country"));
+                player.setOverallScore(rs.getDouble("overall_score"));
+                return player;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Player> getAllPlayers() {
+        List<Player> players = new ArrayList<>();
+        String query = "SELECT * FROM player";
+        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("id"));
+                player.setName(rs.getString("name"));
+                player.setSkill(rs.getString("skill"));
+                player.setExp(rs.getInt("exp"));
+                player.setCountry(rs.getString("country"));
+                player.setOverallScore(rs.getDouble("overall_score"));
+                players.add(player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return players;
+    }
+
+    @Override
+    public void updatePlayer(Player player) {
+        String query = "UPDATE players SET name = ?, skill = ?, exp = ?, country = ?, overall_score = ? WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, player.getName());
+            stmt.setString(2, player.getSkill());
+            stmt.setInt(3, player.getExp());
+            stmt.setString(4, player.getCountry());
+            stmt.setDouble(5, player.getOverallScore());
+            stmt.setInt(6, player.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deletePlayer(int id) {
+        String query = "DELETE FROM player WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Player> sortPlayersBySkill() {
+        List<Player> players = getAllPlayers();
+        players.sort((p1, p2) -> p1.getSkill().compareTo(p2.getSkill()));
+        return players;
+    }
+
+    @Override
+    public List<Player> listPlayersByCountry(String country) {
+        List<Player> players = new ArrayList<>();
+        String query = "SELECT * FROM player WHERE country = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, country);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("id"));
+                player.setName(rs.getString("name"));
+                player.setSkill(rs.getString("skill"));
+                player.setExp(rs.getInt("exp"));
+                player.setCountry(rs.getString("country"));
+                player.setOverallScore(rs.getDouble("overall_score"));
+                players.add(player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return players;
+    }
+
+    @Override
+    public List<Player> listPlayersByExperience() {
+        List<Player> players = getAllPlayers();
+        players.sort((p1, p2) -> Integer.compare(p2.getExp(), p1.getExp())); // Sort in descending order
+        return players;
+    }
+}

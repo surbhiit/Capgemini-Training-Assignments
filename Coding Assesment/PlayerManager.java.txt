@@ -1,0 +1,52 @@
+package JDBC;
+import java.util.List;
+
+public class PlayerManager {
+    public static void main(String[] args) {
+        Player playerOperations = new Player();
+
+        // Add players
+        Player player1 = new Player();
+        player1.setName("John Doe");
+        player1.setSkill("Batsman");
+        player1.setExp(5);
+        player1.setCountry("India");
+        player1.setOverallScore(75.5);
+        playerOperations.addPlayer(player1);
+
+        Player player2 = new Player();
+        player2.setName("Jane Smith");
+        player2.setSkill("Bowler");
+        player2.setExp(3);
+        player2.setCountry("Australia");
+        player2.setOverallScore(80.2);
+        playerOperations.addPlayer(player2);
+
+        // List all players
+        List<Player> players = playerOperations.getAllPlayers();
+        for (Player p : players) {
+            System.out.println(p.getName() + " - " + p.getSkill());
+        }
+
+        // Sort players by skill
+        List<Player> sortedPlayers = playerOperations.sortPlayersBySkill();
+        System.out.println("\nSorted Players by Skill:");
+        for (Player p : sortedPlayers) {
+            System.out.println(p.getName() + " - " + p.getSkill());
+        }
+
+        // List players by country
+        List<Player> playersByCountry = playerOperations.listPlayersByCountry("India");
+        System.out.println("\nPlayers from India:");
+        for (Player p : playersByCountry) {
+            System.out.println(p.getName());
+        }
+
+        // List players by experience
+        List<Player> playersByExperience = playerOperations.listPlayersByExperience();
+        System.out.println("\nPlayers sorted by experience (descending):");
+        for (Player p : playersByExperience) {
+            System.out.println(p.getName() + " - " + p.getExp() + " years");
+        }
+    }
+}

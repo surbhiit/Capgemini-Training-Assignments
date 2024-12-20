@@ -1,0 +1,15 @@
+package JDBC;
+
+import java.util.List;
+
+public interface PlayerOperations {
+    void addPlayer(Player player);
+    Player getPlayer(int id);
+    List<Player> getAllPlayers();
+    void updatePlayer(Player player);
+    void deletePlayer(int id);
+    List<Player> sortPlayersBySkill();
+    List<Player> listPlayersByCountry(String country);
+    List<Player> listPlayersByExperience();
+}
+
