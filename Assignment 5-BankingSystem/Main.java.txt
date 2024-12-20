@@ -1,0 +1,36 @@
+package problemstatment1capmodule1.basic;                                                           
+                                                                                                    
+public class Main {                                                                                 
+                                                                                                    
+	public static void main(String[] args) {                                                        
+		// TODO Auto-generated method stub                                                          
+		        BankingSystem bankingSystem = new BankingSystem();                                  
+                                                                                                    
+		        // Add new accounts                                                                 
+		        Account account1 = new Account("A001", 1000);                                       
+		        Account account2 = new Account("A002", 500);                                        
+		        Account account3 = new Account("A003", 1500);                                       
+                                                                                                    
+		        bankingSystem.addAccount(account1);                                                 
+		        bankingSystem.addAccount(account2);                                                 
+		        bankingSystem.addAccount(account3);                                                 
+                                                                                                    
+		        // Perform operations                                                               
+		        bankingSystem.deposit("A001", 500);                                                 
+		        bankingSystem.withdraw("A002", 100);                                                
+		        bankingSystem.checkBalance("A001");                                                 
+                                                                                                    
+		        // Mark account2 as inactive and remove it                                          
+		        account2.setActive(false);                                                          
+		        bankingSystem.removeInactiveAccounts();                                             
+                                                                                                    
+		        // Display all active accounts                                                      
+		        System.out.println("Active accounts:");                                             
+		        bankingSystem.displayAllAccounts();                                                 
+                                                                                                    
+		        // Display accounts with the highest and lowest balance                             
+		        bankingSystem.displayHighestAndLowestBalance();                                     
+                                                                                                    
+	}                                                                                               
+}                                                                                                   
+                                                                                                    
