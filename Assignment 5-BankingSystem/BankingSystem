@@ -1,0 +1,99 @@
+package problemstatment1capmodule1.basic;
+
+	import java.util.ArrayList;
+	import java.util.Iterator;
+
+	public class BankingSystem {
+	    private ArrayList<Account> accounts;
+
+	    public BankingSystem() {
+	        this.accounts = new ArrayList<>();
+	    }
+
+	    // Add a new account
+	    public void addAccount(Account account) {
+	        accounts.add(account);
+	    }
+
+	    // Deposit money into an account
+	    public boolean deposit(String accountNumber, double amount) {
+	        for (Account account : accounts) {
+	            if (account.getAccountNumber().equals(accountNumber) && account.isActive()) {
+	                account.deposit(amount);
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+
+	    // Withdraw money from an account
+	    public boolean withdraw(String accountNumber, double amount) {
+	        for (Account account : accounts) {
+	            if (account.getAccountNumber().equals(accountNumber) && account.isActive()) {
+	                return account.withdraw(amount);
+	            }
+	        }
+	        return false;
+	    }
+
+	    // Check balance of an account
+	    public void checkBalance(String accountNumber) {
+	        for (Account account : accounts) {
+	            if (account.getAccountNumber().equals(accountNumber) && account.isActive()) {
+	                account.checkBalance();
+	                return;
+	            }
+	        }
+	        System.out.println("Account id not there.");
+	    }
+
+	    // Remove inactive accounts
+	    public void removeInactiveAccounts() {
+	        Iterator<Account> iterator = accounts.iterator();
+	        while (iterator.hasNext()) {
+	            Account account = iterator.next();
+	            if (!account.isActive()) {
+	                iterator.remove();
+	            }
+	        }
+	    }
+
+	    // Display accounts with the highest and lowest balance
+	    public void displayHighestAndLowestBalance() {
+	        if (accounts.isEmpty()) {
+	            System.out.println("No accounts available.");
+	            return;
+	        }
+
+	        Account highest = null;
+	        Account lowest = null;
+
+	        for (Account account : accounts) {
+	            if (account.isActive()) {
+	                if (highest == null || account.getBalance() > highest.getBalance()) {
+	                    highest = account;
+	                }
+	                if (lowest == null || account.getBalance() < lowest.getBalance()) {
+	                    lowest = account;
+	                }
+	            }
+	        }
+
+	        if (highest != null) {
+	            System.out.println("Account with highest balance: " + highest);
+	        }
+	        if (lowest != null) {
+	            System.out.println("Account with lowest balance: " + lowest);
+	        }
+	    }
+
+	    // Display all active accounts
+	    public void displayAllAccounts() {
+	        for (Account account : accounts) {
+	            if (account.isActive()) {
+	                System.out.println(account);
+	            }
+	        }
+	    }
+	}
+
